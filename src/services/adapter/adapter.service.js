@@ -1,11 +1,9 @@
 // Initializes the `adapter` service on path `/adapter`
 const { Adapter } = require('./adapter.class');
-const createModel = require('../../models/adapter.model');
 const hooks = require('./adapter.hooks');
 
 module.exports = function (app) {
   const options = {
-    Model: createModel(app),
     paginate: app.get('paginate')
   };
 

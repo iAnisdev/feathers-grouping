@@ -1,20 +1,16 @@
 module.exports = (app) => {
-  const mongooseClient = app.get('mongooseClient');
+  const mongoClient = app.get('mongoClient')
+  const database = app.get('database')
   return async function countAdapters(req, res, next) {
-    const {  adapter } = mongooseClient.models
     try {
-      const results = await adapter.aggregate().sortByCount('language')
-      results.map((record) => {
-        record.language = record._id
-        record.sum = record.count
-        delete record._id
-        delete record.count
-        return record
+      mongoClient.then(async client => {
+        var adapterCollection = client.db(database).collection('Adapter')
+        adapterCollection.aggregate([{$sortByCount: "$language" }]).toArray((error, result) => {
+          res.json(result)
+        })
       })
-      res.json(results)
-    } catch (error) {
-      console.log("error " , error)
+    } catch (e) {
+      console.log('catch err ', e)
     }
-
   }
 };
