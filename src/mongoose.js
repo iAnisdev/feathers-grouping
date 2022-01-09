@@ -17,7 +17,7 @@ module.exports = function (app) {
         let records_list = []
         for(var i = 0; i < 100; i++){
           records_list.push({
-            document:  languages[Math.round(Math.random() * 2)]
+            language:  languages[Math.round(Math.random() * 2)]
           })
         }
         adapterModel.insertMany(records_list).then(function(){

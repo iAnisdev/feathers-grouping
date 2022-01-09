@@ -3,7 +3,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    document: {
+    language: {
       type: String,
       required: true
     }
